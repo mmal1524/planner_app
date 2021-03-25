@@ -1,0 +1,1 @@
+// page in the app that displays all a running list of the pages added to the virtual journal
