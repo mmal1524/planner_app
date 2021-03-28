@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planner_app/services/auth.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -10,6 +11,8 @@ class _SignInState extends State<SignIn> {
 
   String email = '';
   String password = '';
+
+  final AuthService _auth = new AuthService();
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,9 +40,10 @@ class _SignInState extends State<SignIn> {
             SizedBox(height: 10),
             // ignore: missing_required_param
             ElevatedButton(
-              child: Text('Sign In'),
+              child: Text('Sign Up'),
               onPressed: (){
                 print('email: $email, password: $password');
+                _auth.signUp(email, password);
               },
               
               )

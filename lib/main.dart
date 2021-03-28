@@ -3,6 +3,9 @@ import 'screens/home/home.dart';
 import 'screens/home/notes.dart';
 import 'screens/home/daily.dart';
 import 'screens/wrapper.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 void main() {
   runApp(MyApp());
