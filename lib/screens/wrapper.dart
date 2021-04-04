@@ -8,6 +8,12 @@ import 'package:planner_app/screens/home/home.dart';
 class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Home();
+    bool loggedIn = false;
+    if (loggedIn) {
+      return Home();
+    }
+    else {
+      return Authenticate();
+    }
   }
 }
