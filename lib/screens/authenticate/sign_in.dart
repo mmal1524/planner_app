@@ -7,7 +7,6 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  @override
 
   String email = '';
   String password = '';
@@ -40,10 +39,11 @@ class _SignInState extends State<SignIn> {
             SizedBox(height: 10),
             // ignore: missing_required_param
             ElevatedButton(
-              child: Text('Sign Up'),
+              child: Text('Sign In'),
               onPressed: (){
                 print('email: $email, password: $password');
-                _auth.signUp(email, password);
+                _auth.signIn(email, password);
+                
               },
               
               )
