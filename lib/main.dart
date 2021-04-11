@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:planner_app/services/auth.dart';
+import 'package:provider/provider.dart';
 import 'screens/home/home.dart';
 import 'screens/home/notes.dart';
 import 'screens/home/daily.dart';
@@ -19,29 +21,35 @@ class MyApp extends StatelessWidget {
  
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      // Initialize FlutterFire:
-      future: _initialization,
-      builder: (context, snapshot) {
-        // Check for errors
-        if (snapshot.hasError) {
-          return Text('something went wrong');
-        }
+    return StreamProvider<User>.value(
+      initialData: null,
+      value: AuthService().user,
+      child:  FutureBuilder(
+        // Initialize FlutterFire:
+        future: _initialization,
+        builder: (context, snapshot) {
+          // Check for errors
+          if (snapshot.hasError) {
+            return Text('something went wrong');
+          }
 
-        // Once complete, show your application
-        if (snapshot.connectionState == ConnectionState.done) {
-          return MaterialApp(
-            theme: ThemeData(
-              primaryColor: Colors.cyan[800], 
-            ),
-            home: Wrapper(),
-          );
-        }
+          // Once complete, show your application
+          if (snapshot.connectionState == ConnectionState.done) {
+            return MaterialApp(
+              theme: ThemeData(
+                primaryColor: Colors.cyan[800], 
+              ),
+              home: Wrapper(),
+            );
+          }
 
-        // Otherwise, show something whilst waiting for initialization to complete
-        return Container(child: Text('Loading???'));
-      },
+          // Otherwise, show something whilst waiting for initialization to complete
+          return Text('Loading');
+        },
+      )
     );
+    
+   
     
     
   }

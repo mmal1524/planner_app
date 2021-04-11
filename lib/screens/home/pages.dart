@@ -1,5 +1,7 @@
 // page in the app that displays all a running list of the pages added to the virtual journal
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:planner_app/services/auth.dart';
 
 class Pages extends StatefulWidget {
   @override
@@ -7,11 +9,21 @@ class Pages extends StatefulWidget {
 }
 
 class _PagesState extends State<Pages> {
+  final AuthService _auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('myPlan?')
+        title: Text('myPlan?'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.person), 
+            onPressed: () async {
+              await _auth.signOutUser();
+            }
+          )
+        ],
       ),
       body: Column(
         children: [

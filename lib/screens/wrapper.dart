@@ -5,24 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:planner_app/screens/authenticate/authenticate.dart';
 import 'package:planner_app/screens/home/home.dart';
 import 'package:planner_app/services/auth.dart';
+import 'package:provider/provider.dart';
 
 
 class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-  final FirebaseAuth _auth = FirebaseAuth.instance; 
+    // Stream Provider code from https://www.youtube.com/watch?v=_Sa60ZxFgSI
 
-
-  bool loggedIn = false; 
-
-  if (loggedIn) {
-      print("change to home");
-      return Home();
+    User _user = Provider.of<User>(context);
+    if (_user == null){
+      print("login/signup page"); 
+      return Authenticate();
     }
     else {
-      return Authenticate();
-      
+      print("homepage, ${_user.uid}"); 
+      return Home();
     }
-    
   }
 }
