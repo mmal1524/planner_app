@@ -31,9 +31,8 @@ class _PagesState extends State<Pages> {
           Center(
             child: Card(
               margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-              
               child: Column(
-                
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text('Page Title'), 
                   Text('date created'),
@@ -42,8 +41,40 @@ class _PagesState extends State<Pages> {
             ),
           )  
         ]
-      )
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: PopupMenuButton(
+          icon: Icon(Icons.add),
+          onSelected: (val) {
+            if (val == 'notes') {
+              print('added note');
+            }
+            else if (val == 'daily'){
+              print('added daily');
+            }
+            else {
+              print('added habit tracker');
+            }
+          },
+          color: Colors.pink[100],
+          itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+            PopupMenuItem(
+              child: Icon(Icons.sticky_note_2_outlined),
+              value: 'notes',
+            ),
+            PopupMenuItem(
+              child: Icon(Icons.assignment_outlined),
+              value: 'daily',
+            ),
+            PopupMenuItem(
+              child: Icon(Icons.event_available_outlined),
+              value: 'daily',
+            ),
+          ]
 
+        )
+      ),
     );
   }
 }

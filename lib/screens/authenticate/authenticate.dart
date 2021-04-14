@@ -9,9 +9,21 @@ class Authenticate extends StatefulWidget {
   _AuthenticateState createState() => _AuthenticateState();
 }
 
-class _AuthenticateState extends State<Authenticate> {
+class _AuthenticateState extends State<Authenticate> {  
+  bool haveAccount = false;
+  
+  // https://www.youtube.com/watch?v=E-DRnRUXcBY&list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJYQwC&index=11
+  void changeView() {
+    setState(() => haveAccount = !haveAccount);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SignUp();
+    if (haveAccount) {
+      return SignIn(changeView: changeView);
+    }
+    else {
+      return SignUp(changeView: changeView);
+    }
   }
 }

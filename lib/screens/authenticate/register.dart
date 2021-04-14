@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:planner_app/services/auth.dart';
 
 class SignUp extends StatefulWidget {
+  final Function changeView;
+  SignUp({this.changeView});
+  
   @override
   _SignUpState createState() => _SignUpState();
 }
@@ -10,6 +13,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   String email = '';
   String password = '';
+  String username = '';
 
   final AuthService _auth = new AuthService();
 
@@ -21,6 +25,7 @@ class _SignUpState extends State<SignUp> {
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,20 +43,27 @@ class _SignUpState extends State<SignUp> {
                     setState(() => password = val);
                   }
                 ),
+                TextField(
+                  decoration: InputDecoration(labelText: 'username'),
+                  onChanged: (val) {
+                    setState(() => username = val);
+                  }
+                ),
                 SizedBox(height: 10),
                 ElevatedButton(
                   child: Text('Sign Up'),
                   onPressed: (){
                     print('email: $email, password: $password');
-                    _auth.signUp(email, password, "name");
+                    _auth.signUp(email, password, username);
                   },
                 ),
               ],
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('Have an account?'),
-                TextButton(onPressed: (){}, child: Text('Login!'))
+                TextButton(onPressed: widget.changeView, child: Text('Login!'))
               ],
             )
           ],
