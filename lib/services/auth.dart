@@ -1,11 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:planner_app/services/firestore.dart';
 
 class AuthService {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  //FireStoreService _db = FireStoreService();
+  //MyUser currentUser = MyUser();
 
+  //MyUser get getCurrentUser => currentUser;
 
   // returns a Firebase User object by checking whether there is a user logged in or not, 
   // returns the user if not null
@@ -18,8 +20,10 @@ class AuthService {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User user = result.user;
-      _db.collection('users').doc(user.uid).set({'email': '$email', 'username': username});
-      print('${user.uid} signed in');
+      //currentUser.uid = user.uid;
+      //currentUser.email = email;
+      
+      FireStoreService(uid: user.uid).createUser(user.uid, email, username);
     }
     catch (e) {
       print(e);
@@ -30,7 +34,14 @@ class AuthService {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
       User user = result.user;
-      print('${user.uid} signed in');
+      print(user);
+      //currentUser.uid = user.uid;
+      //currentUser.email = email;
+      // if (user != null) {
+      //   return MyUser(uid: user.uid, email: email);
+      // } else {
+      //   return null;
+      // }
     }
     catch (e) {
       print(e);
@@ -40,6 +51,7 @@ class AuthService {
   Future signOutUser() async {
     try {
       print('user signed out');
+      //currentUser = MyUser();
       return await _auth.signOut();
     }
     catch (e) {

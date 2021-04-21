@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:planner_app/screens/authenticate/authenticate.dart';
 import 'package:planner_app/screens/home/home.dart';
-import 'package:planner_app/services/auth.dart';
 import 'package:provider/provider.dart';
 
 

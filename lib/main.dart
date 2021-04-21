@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planner_app/services/auth.dart';
 import 'package:provider/provider.dart';
-import 'screens/home/home.dart';
-import 'screens/home/notes.dart';
-import 'screens/home/daily.dart';
 import 'screens/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,7 +21,8 @@ class MyApp extends StatelessWidget {
     return StreamProvider<User>.value(
       initialData: null,
       value: AuthService().user,
-      child:  FutureBuilder(
+      child: 
+        FutureBuilder(
         // Initialize FlutterFire:
         future: _initialization,
         builder: (context, snapshot) {
@@ -44,7 +42,9 @@ class MyApp extends StatelessWidget {
           }
 
           // Otherwise, show something whilst waiting for initialization to complete
-          return Text('Loading');
+          return MaterialApp(
+            home: Text('Loading')
+          );
         },
       )
     );

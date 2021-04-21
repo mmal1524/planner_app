@@ -47,7 +47,6 @@ class _SignInState extends State<SignIn> {
                 ElevatedButton(
                   child: Text('Sign In'),
                   onPressed: (){
-                    print('email: $email, password: $password');
                     _auth.signIn(email, password);
                     
                   },

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planner_app/screens/home/pages.dart';
 
-import 'daily.dart';
-import 'notes.dart';
 
 class Home extends StatefulWidget {
   @override
