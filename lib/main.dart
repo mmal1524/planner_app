@@ -18,35 +18,37 @@ class MyApp extends StatelessWidget {
  
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<User>.value(
-      initialData: null,
-      value: AuthService().user,
-      child: 
-        FutureBuilder(
-        // Initialize FlutterFire:
-        future: _initialization,
-        builder: (context, snapshot) {
-          // Check for errors
-          if (snapshot.hasError) {
-            return Text('something went wrong');
-          }
+    return FutureBuilder(
+      // Initialize FlutterFire:
+      future: _initialization,
+      builder: (context, snapshot) {
+        // Check for errors
+        if (snapshot.hasError) {
+          return Text('something went wrong');
+        }
 
-          // Once complete, show your application
-          if (snapshot.connectionState == ConnectionState.done) {
-            return MaterialApp(
-              theme: ThemeData(
-                primaryColor: Colors.cyan[800], 
-              ),
-              home: Wrapper(),
-            );
-          }
-
-          // Otherwise, show something whilst waiting for initialization to complete
+        // Once complete, show your application
+        if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
-            home: Text('Loading')
+            theme: ThemeData(
+              primaryColor: Colors.cyan[800], 
+            ),
+            home: StreamProvider<User>.value(
+              initialData: null,
+              value: AuthService().user,
+              builder: (context, snapshot) {
+                return Wrapper();
+              }
+            )
+            
           );
-        },
-      )
+        }
+
+        // Otherwise, show something whilst waiting for initialization to complete
+        return MaterialApp(
+          home: Text('Loading')
+        );
+      },
     );
     
    

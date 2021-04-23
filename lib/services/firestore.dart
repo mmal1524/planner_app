@@ -13,14 +13,15 @@ class FireStoreService {
       return snapshot.docs.map<PageData>((doc) {
         return PageData(
           docRef: doc.id ?? 'something went wrong and I dont know why', 
-          title: doc.get('name') ?? 'name doesnt exist', 
-          dateCreated: doc.get('dateCreated') ?? 'dateeee', 
-          type: doc.get('type') ?? 'nothing is working',
+          title: doc.data()['title'] ?? 'name doesnt exist', 
+          dateCreated: doc.data()['dateCreated'] ?? 'dateeee', 
+          type: doc.data()['type'] ?? 'nothing is working',
         );
       }).toList();
   }
 
   Stream<List<PageData>> get pages {
+    print( _db.collection('users').doc('$uid').collection('pages').snapshots().length);
     return _db.collection('users').doc('$uid').collection('pages').snapshots().map(_getPageData);
   }
 

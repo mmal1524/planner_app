@@ -15,7 +15,7 @@ class PageTile extends StatelessWidget {
     return ListTile(
       title: Text('$title'),
       leading: type == 'daily' ? Icon(Icons.assignment_outlined) : Icon(Icons.sticky_note_2_outlined),
-      subtitle: Text('Date Created:${dateCreated.toString()}'),
+      subtitle: Text('Date Created: ${dateCreated.toString()}'),
     );
   }
 }
