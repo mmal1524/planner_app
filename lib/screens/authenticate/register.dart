@@ -39,10 +39,12 @@ class _SignUpState extends State<SignUp> {
                 SizedBox(height: 10),
                 TextField(
                   decoration: InputDecoration(labelText: 'password'),
+                  obscureText: true,
                   onChanged: (val) {
                     setState(() => password = val);
                   }
                 ),
+                SizedBox(height: 10),
                 TextField(
                   decoration: InputDecoration(labelText: 'username'),
                   onChanged: (val) {

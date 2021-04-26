@@ -14,7 +14,7 @@ class _NotesState extends State<Notes> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Notes for today???'
+          'Notes'
         ),
         centerTitle: true,
       ),
@@ -28,7 +28,7 @@ class _NotesState extends State<Notes> {
             onChanged: (val) {},
             ),
           TextField(
-            controller: TextEditingController(text: 'This is text. Click to edit? Hopefully this works??'),
+            controller: TextEditingController(text: 'This is text. Click to edit?'),
             onChanged: (val) {},
             )
           ],

@@ -9,13 +9,15 @@ class FireStoreService {
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
+  // https://www.youtube.com/watch?v=ggYTQn4WVuw&list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJYQwC&index=19
+  // Stream implementation from Net Ninja tutorial
   List<PageData> _getPageData (QuerySnapshot snapshot) {
       return snapshot.docs.map<PageData>((doc) {
         return PageData(
-          docRef: doc.id ?? 'something went wrong and I dont know why', 
-          title: doc.data()['title'] ?? 'name doesnt exist', 
-          dateCreated: doc.data()['dateCreated'] ?? 'dateeee', 
-          type: doc.data()['type'] ?? 'nothing is working',
+          docRef: doc.id ?? 'something went wrong', 
+          title: doc.data()['title'] ?? 'title', 
+          dateCreated: doc.data()['dateCreated'] ?? 'date', 
+          type: doc.data()['type'] ?? 'type',
         );
       }).toList();
   }
@@ -50,7 +52,7 @@ class FireStoreService {
     try{
       await _db.collection('users').doc(uid).collection('pages').doc('${Timestamp.now().toDate()}').set({
         'type': pageType,
-        'dateCreated': Timestamp.now(),
+        'dateCreated': Timestamp.now().toDate(),
         'title': title
         }
       );
@@ -59,5 +61,7 @@ class FireStoreService {
       print(e);
     }
   }
+
+  
 
 }

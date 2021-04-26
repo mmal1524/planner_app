@@ -38,6 +38,7 @@ class _SignInState extends State<SignIn> {
                 SizedBox(height: 10),
                 TextField(
                   decoration: InputDecoration(labelText: 'password'),
+                  obscureText: true,
                   onChanged: (val) {
                     setState(() => password = val);
                   }

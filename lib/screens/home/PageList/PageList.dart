@@ -4,11 +4,17 @@ import 'package:planner_app/models/PageData.dart';
 import 'package:provider/provider.dart';
 
 class PageList extends StatefulWidget {
+  final String uid;
+  PageList({this.uid});
+
   @override
   _PageListState createState() => _PageListState();
 }
 
 class _PageListState extends State<PageList> {
+  final String uid;
+  _PageListState({this.uid});
+  
   @override
   Widget build(BuildContext context) {
 
@@ -22,7 +28,7 @@ class _PageListState extends State<PageList> {
         itemCount: pages.length,
         itemBuilder: (context, index) {
           return Card(
-            child: PageTile(title: pages[index].type, dateCreated: pages[index].dateCreated, type: pages[index].type, docRef: pages[index].docRef),
+            child: PageTile(page: pages[index], uid: uid),
           );
         }
       );

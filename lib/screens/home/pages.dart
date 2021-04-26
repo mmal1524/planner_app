@@ -42,8 +42,7 @@ class _PagesState extends State<Pages> {
             children: [
               Center(child: Text('my Pages')),
               Expanded(
-                child: PageList()
-                
+                child: PageList(uid: user.uid)                
               ),
             ]
           ),
