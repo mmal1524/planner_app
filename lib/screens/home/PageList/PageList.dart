@@ -8,7 +8,7 @@ class PageList extends StatefulWidget {
   PageList({this.uid});
 
   @override
-  _PageListState createState() => _PageListState();
+  _PageListState createState() => _PageListState(uid: uid);
 }
 
 class _PageListState extends State<PageList> {

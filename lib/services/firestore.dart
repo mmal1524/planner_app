@@ -37,6 +37,22 @@ class FireStoreService {
     }
   }
 
+  Future addTask(String pageID, String task, DateTime deadline) async {
+    print('uid: $uid, pageID: $pageID');
+    
+    
+    try{
+      await _db.collection('users').doc(uid).collection('pages').doc(pageID).collection('tasks').add({
+        'task': task,
+        'deadline': deadline,
+        'status': 'to-do',
+      });
+    }
+    catch (e) {
+      print(e);
+    }
+  }
+
   Future addPage(String pageType) async {
     //MyUser currentU = AuthService().getCurrentUser;
     //String uid = currentU.uid;
@@ -50,7 +66,7 @@ class FireStoreService {
     }
 
     try{
-      await _db.collection('users').doc(uid).collection('pages').doc('${Timestamp.now().toDate()}').set({
+      await _db.collection('users').doc('$uid').collection('pages').doc('${Timestamp.now().toDate()}').set({
         'type': pageType,
         'dateCreated': Timestamp.now().toDate(),
         'title': title

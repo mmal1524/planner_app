@@ -73,7 +73,7 @@ class _BasicDailyState extends State<BasicDaily> {
                           ),
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
                             child: Column(
                               children: [
                                 Text('Task 3 to do'), 
@@ -85,7 +85,7 @@ class _BasicDailyState extends State<BasicDaily> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
+                          padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
                           child: Text(
                             'Due date?'
                             ),
@@ -106,7 +106,8 @@ class _BasicDailyState extends State<BasicDaily> {
           showModalBottomSheet(
             context: context, 
             builder: (context) {
-              return TaskForm();
+              print('page Id: ${page.docRef}, uid: $uid');
+              return DailyForm(docRef: page.docRef, uid: uid,);
             }
           );
         },
