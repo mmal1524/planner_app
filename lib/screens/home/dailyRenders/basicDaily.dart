@@ -1,8 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:planner_app/models/PageData.dart';
 import 'package:planner_app/screens/home/dailyRenders/TaskForm.dart';
-import 'package:planner_app/services/firestore.dart';
 
 class BasicDaily extends StatefulWidget {
   final String uid;
@@ -66,6 +64,7 @@ class _BasicDailyState extends State<BasicDaily> {
                     padding: const EdgeInsets.all(15.0),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
                       children: [
                         IconButton(
                           onPressed: () {},
@@ -88,7 +87,11 @@ class _BasicDailyState extends State<BasicDaily> {
                           padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
                           child: Text(
                             'Due date?'
-                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.more_vert),
+                          onPressed: () {}
                         )
                       ],
                     ),

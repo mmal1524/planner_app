@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:planner_app/screens/home/dailyRenders/basicDaily.dart';
 import 'package:planner_app/screens/home/notes.dart';

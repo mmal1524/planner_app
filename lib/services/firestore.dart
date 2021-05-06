@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:planner_app/models/PageData.dart';
+import 'package:planner_app/models/taskData.dart';
 
 
 class FireStoreService {
@@ -27,6 +29,22 @@ class FireStoreService {
     return _db.collection('users').doc('$uid').collection('pages').snapshots().map(_getPageData);
   }
 
+  List<TaskData> _getTaskData (QuerySnapshot snapshot) {
+    return snapshot.docs.map<TaskData>((doc) {
+      return TaskData(
+        id: doc.id,
+        task: doc.data()['task'] ?? 'unknown task',
+        status: doc.data()['status'] ?? 'unknown status',
+        notes: doc.data()['notes'] ?? 'unknown notes',
+        deadline: doc.data()['deadline'] ?? Timestamp(0, 0)
+      );
+    }).toList();
+  }
+
+  Stream<List<TaskData>> getTasks(String pageID) {
+    
+    return _db.collection('users').doc('$uid').collection('pages').doc('$pageID').collection('tasks').snapshots().map(_getTaskData);
+  }
 
   Future createUser(String uid, String email, String username) async {
     try {
@@ -39,12 +57,23 @@ class FireStoreService {
 
   Future addTask(String pageID, String task, DateTime deadline) async {
     print('uid: $uid, pageID: $pageID');
-    
-    
     try{
       await _db.collection('users').doc(uid).collection('pages').doc(pageID).collection('tasks').add({
         'task': task,
         'deadline': deadline,
+        'status': 'to-do',
+      });
+    }
+    catch (e) {
+      print(e);
+    }
+  }
+
+  Future addEvent(String pageID, String event, TimeOfDay time) async {
+    try {
+       await _db.collection('users').doc(uid).collection('pages').doc(pageID).collection('events').add({
+        'event': event,
+        'time': Timestamp.fromDate(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, time.hour, time.minute, 0, 0, 0)),
         'status': 'to-do',
       });
     }
