@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:planner_app/screens/home/notes/noteForm.dart';
 
 class Notes extends StatefulWidget {
+  final String uid, noteID;
+  Notes({this.uid, this.noteID});
+
   @override
-  _NotesState createState() => _NotesState();
+  _NotesState createState() => _NotesState(uid: uid, noteID: noteID);
 }
 
 class _NotesState extends State<Notes> {
-  @override
-
+  final String uid, noteID;
+  _NotesState({this.uid, this.noteID});
   
-
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +36,18 @@ class _NotesState extends State<Notes> {
             onChanged: (val) {},
             )
           ],
-      )
+      ),
+      floatingActionButton: IconButton(
+        icon: Icon(Icons.add),
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) {
+              return NoteForm(uid: uid, noteID: noteID);
+            }
+          );
+        },
+      ),
     );
   }
 }

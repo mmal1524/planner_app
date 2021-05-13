@@ -78,6 +78,7 @@ class _TaskFormState extends State<TaskForm> {
   
   String task = '';
   DateTime deadline;
+  String notes = '';
 
   @override
   Widget build(BuildContext context) {
@@ -118,9 +119,19 @@ class _TaskFormState extends State<TaskForm> {
               ),
             ],
           ),
+          TextField(
+            decoration: InputDecoration(labelText: 'notes'),
+            minLines: 1,
+            maxLines: 20,
+            keyboardType: TextInputType.text,
+            onChanged: (val) {
+              setState(() => notes = val);
+            },
+          ),
           OutlinedButton(
             onPressed: (){
-              FireStoreService(uid: uid).addTask(docRef, task, deadline);
+              FireStoreService(uid: uid).addTask(docRef, task, deadline, notes);
+              Navigator.pop(context);
             }, 
             child: Text('Submit')
           )
@@ -194,6 +205,7 @@ class _EventFormState extends State<EventForm> {
           OutlinedButton(
             onPressed: (){
               FireStoreService(uid: uid).addEvent(docRef, event, time);
+              Navigator.pop(context);
             }, 
             child: Text('Submit')
           )
