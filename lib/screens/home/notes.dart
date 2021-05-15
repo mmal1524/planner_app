@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:planner_app/models/NoteData.dart';
+import 'package:planner_app/models/PageData.dart';
 import 'package:planner_app/screens/home/notes/noteForm.dart';
+import 'package:planner_app/screens/home/notes/noteList.dart';
+import 'package:planner_app/services/firestore.dart';
+import 'package:provider/provider.dart';
 
 class Notes extends StatefulWidget {
-  final String uid, noteID;
-  Notes({this.uid, this.noteID});
+  final String uid;
+  final PageData page;
+  Notes({this.uid, this.page});
 
   @override
-  _NotesState createState() => _NotesState(uid: uid, noteID: noteID);
+  _NotesState createState() => _NotesState(uid: uid, page: page);
 }
 
 class _NotesState extends State<Notes> {
-  final String uid, noteID;
-  _NotesState({this.uid, this.noteID});
+  final String uid;
+  final PageData page;
+  _NotesState({this.uid, this.page});
   
   @override
   Widget build(BuildContext context) {
@@ -22,20 +29,17 @@ class _NotesState extends State<Notes> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          TextField(
-            decoration: InputDecoration(hintText: 'title'),
-            minLines: 1,
-            maxLines: 1,
-            onChanged: (val) {},
+      body: StreamProvider<List<NoteData>>.value(
+        initialData: [],
+        value: FireStoreService(uid: uid).getNotes(page.docRef),
+        child: Column(
+          children: [
+            Text('${page.title}'),
+            Expanded(
+              child: NoteList()
             ),
-          TextField(
-            controller: TextEditingController(text: 'This is text. Click to edit?'),
-            onChanged: (val) {},
-            )
-          ],
+          ]
+        )
       ),
       floatingActionButton: IconButton(
         icon: Icon(Icons.add),
@@ -43,7 +47,7 @@ class _NotesState extends State<Notes> {
           showModalBottomSheet(
             context: context,
             builder: (context) {
-              return NoteForm(uid: uid, noteID: noteID);
+              return NoteForm(uid: uid, noteID: page.docRef);
             }
           );
         },

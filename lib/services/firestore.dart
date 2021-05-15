@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:planner_app/models/NoteData.dart';
 import 'package:planner_app/models/PageData.dart';
 import 'package:planner_app/models/taskData.dart';
 
@@ -45,6 +46,19 @@ class FireStoreService {
     return _db.collection('users').doc('$uid').collection('pages').doc('$pageID').collection('tasks').snapshots().map(_getTaskData);
   }
 
+  List<NoteData> _getNoteData (QuerySnapshot snapshot) {
+    return snapshot.docs.map<NoteData>((doc) {
+      return NoteData(
+        type: doc.data()['noteType'] ?? 'type',
+        val: doc.data()['noteVal'] ?? 'value',
+      );
+    }).toList();
+  }
+
+  Stream<List<NoteData>> getNotes(String noteID) {
+    return _db.collection('users').doc('$uid').collection('pages').doc('$noteID').collection('notes').snapshots().map(_getNoteData);
+  }
+
   changeTaskStatus(String newStatus, pageID, taskID){
     _db.collection('users').doc('$uid').collection('pages').doc('$pageID').collection('tasks').doc('$taskID').update({
         'status': newStatus
@@ -85,6 +99,23 @@ class FireStoreService {
         'time': Timestamp.fromDate(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, time.hour, time.minute, 0, 0, 0)),
         'status': 'to-do',
       });
+    }
+    catch (e) {
+      print(e);
+    }
+  }
+
+  Future addNote(String title, String noteID, List<String> noteVals, List<String> noteTypes) async {
+    try {
+      await _db.collection('users').doc(uid).collection('pages').doc(noteID).update({'title': title});
+      for (var i = 0; i < noteVals.length; i++) {
+        await _db.collection('users').doc(uid).collection('pages').doc(noteID).collection('notes').doc('note$i').set({
+          'noteVal': noteVals[i],
+          'noteType': noteTypes[i],
+          'noteNum': i,
+        });
+      }
+       
     }
     catch (e) {
       print(e);

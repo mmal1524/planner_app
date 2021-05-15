@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planner_app/services/firestore.dart';
 
 class NoteForm extends StatefulWidget {
   final String uid, noteID;
@@ -101,7 +102,8 @@ class _NoteFormState extends State<NoteForm> {
           ),
           OutlinedButton(
             onPressed: (){
-              //FireStoreService(uid: uid).addTask(docRef, task, deadline, notes);
+              print('$title, $noteID, $noteVals, $noteTypes');
+              FireStoreService(uid: uid).addNote(title, noteID, noteVals, noteTypes);
               Navigator.pop(context);
             }, 
             child: Text('Submit')

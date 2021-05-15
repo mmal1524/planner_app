@@ -24,7 +24,8 @@ class PageTile extends StatelessWidget {
           Navigator.push(context, MaterialPageRoute(builder: (context) {return BasicDaily(uid: uid, page: page);}));
         }
         else {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {return Notes();}));
+          Navigator.push(context, MaterialPageRoute(builder: (context) {return Notes(uid: uid, page: page);}));
+          print(page.docRef);
         }
       },
     );
