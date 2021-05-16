@@ -18,12 +18,11 @@ class _NoteListState extends State<NoteList> {
   @override
   Widget build(BuildContext context) {
     List<NoteData> notes = Provider.of<List<NoteData>>(context);
-    
 
     return ListView.builder(
       itemCount: notes.length,
       itemBuilder: (context, index) {
-        if (notes != null || notes.length == 0){
+        if (notes != null || notes.length != 0){
           if (notes[index].type == 'header') {
             return Header(val: notes[index].val);
           }

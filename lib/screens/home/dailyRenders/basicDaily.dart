@@ -5,6 +5,8 @@ import 'package:planner_app/screens/home/dailyRenders/TaskForm.dart';
 import 'package:planner_app/screens/home/dailyRenders/TaskList.dart';
 import 'package:planner_app/services/firestore.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
+
 
 
 class BasicDaily extends StatefulWidget {
@@ -37,10 +39,10 @@ class _BasicDailyState extends State<BasicDaily> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('${page.dateCreated.toDate()}'),
-                Text('${page.dateCreated.toDate().weekday}'),
+                Text('${DateFormat.EEEE('en_US').format(page.dateCreated.toDate())}'),
+                Text('${DateFormat.yMMMEd('en_US').format(page.dateCreated.toDate())}'),
                 ]
             ),
             Expanded(

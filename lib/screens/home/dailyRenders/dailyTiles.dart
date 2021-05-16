@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:planner_app/models/taskData.dart';
 import 'TaskForm.dart';
 import 'package:planner_app/services/firestore.dart';
+import 'package:intl/intl.dart';
 
 class TaskTile extends StatelessWidget {
   final TaskData task;
@@ -46,7 +47,7 @@ class TaskTile extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
           child: Text(
-            'add date'
+            '${DateFormat.yMd().add_jm().format(task.deadline.toDate())}'
           ),
         ), 
         IconButton(

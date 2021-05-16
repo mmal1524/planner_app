@@ -30,8 +30,46 @@ class MyApp extends StatelessWidget {
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
-            theme: ThemeData(
-              primaryColor: Colors.cyan[800], 
+            theme: ThemeData.from(
+              colorScheme: ColorScheme(
+                brightness: Brightness.light,
+                
+                secondary: Colors.pink[50],
+                primary: Colors.blueGrey[900],
+                background: Colors.blueGrey[50],
+                onSecondary: Colors.blueGrey[700],
+                onPrimary: Colors.pink[50],
+                surface: Colors.blueGrey[100],
+                onSurface: Colors.blueGrey[700],
+                onError: Colors.red,
+                primaryVariant: Colors.blueGrey[700],
+                onBackground: Colors.blueGrey[900],
+                error: Colors.blueGrey[50],
+                secondaryVariant: Colors.pink[500]
+              ),
+              textTheme: TextTheme(
+
+              )
+              // primaryColor: Colors.blueGrey[900], 
+              // accentColor: Colors.pink[50],
+              // scaffoldBackgroundColor: Colors.blueGrey[900],
+              // brightness: Brightness.dark
+              // floatingActionButtonTheme: FloatingActionButtonThemeData(
+              //   backgroundColor: Colors.pink[50],
+              //   splashColor: Colors.pink[100],
+              // ),
+              // iconTheme: IconThemeData(
+              //   color: Colors.blueGrey[900],
+              // ),
+              // buttonTheme: ButtonThemeData(
+              //   buttonColor: Colors.pink[50],
+              //   //hoverColor: Colors.blueGrey[100],
+              // ),
+              // timePickerTheme: TimePickerThemeData(
+              //   dialHandColor: Colors.pink[50],
+              //   dialTextColor: Colors.blueGrey[900],
+                
+              // )
             ),
             home: StreamProvider<User>.value(
               initialData: null,

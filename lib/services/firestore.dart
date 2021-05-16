@@ -56,7 +56,7 @@ class FireStoreService {
   }
 
   Stream<List<NoteData>> getNotes(String noteID) {
-    return _db.collection('users').doc('$uid').collection('pages').doc('$noteID').collection('notes').snapshots().map(_getNoteData);
+    return _db.collection('users').doc('$uid').collection('pages').doc('$noteID').collection('notes').orderBy('noteNum').snapshots().map(_getNoteData);
   }
 
   changeTaskStatus(String newStatus, pageID, taskID){

@@ -22,36 +22,39 @@ class _NotesState extends State<Notes> {
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Notes'
+    return StreamProvider<List<NoteData>>.value(
+      initialData: [],
+      value: FireStoreService(uid: uid).getNotes(page.docRef),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Notes'
+          ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: StreamProvider<List<NoteData>>.value(
-        initialData: [],
-        value: FireStoreService(uid: uid).getNotes(page.docRef),
-        child: Column(
+        body:  Column(
           children: [
             Text('${page.title}'),
             Expanded(
               child: NoteList()
             ),
           ]
-        )
-      ),
-      floatingActionButton: IconButton(
-        icon: Icon(Icons.add),
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            builder: (context) {
-              return NoteForm(uid: uid, noteID: page.docRef);
-            }
-          );
-        },
-      ),
+        ),
+        floatingActionButton: IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return StreamProvider<List<NoteData>>.value(
+                  initialData: [],
+                  value: FireStoreService(uid: uid).getNotes(page.docRef),
+                  child: NoteForm(uid: uid, page: page));
+              }
+            );
+          },
+        ),
+      )
     );
   }
 }
