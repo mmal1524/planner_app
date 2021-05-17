@@ -25,9 +25,7 @@ class _NoteFormState extends State<NoteForm> {
   String title = '';
   @override
   Widget build(BuildContext context) {
-    // setState(() {
-    //   title = page.title;
-    // });
+ 
 
     List<NoteData> notes = Provider.of<List<NoteData>>(context);
     
@@ -37,10 +35,7 @@ class _NoteFormState extends State<NoteForm> {
     if (notes.length != 0 && noteTypes.length == 0) {
       tempVals = [];
       tempTypes = [];
-      // setState(() {
-      //   noteVals = [];
-      //   noteTypes = [];
-      // });
+
       for (var note in notes) {
         tempVals.add(note.val);
         tempTypes.add(note.type);
@@ -48,22 +43,10 @@ class _NoteFormState extends State<NoteForm> {
       setState(() {
         noteVals = tempVals;
         noteTypes = tempTypes;
-        // noteVals = [... noteVals, note.val];
-        // noteTypes = [... noteTypes, note.type];
+        
       });
-      // for (var i = notes.length - 1; i < noteTypes.length; i++) {
-      //   setState(() {
-      //     noteVals = [... noteVals, note.val];
-      //     noteTypes = [... noteTypes, note.type];
-      //   });
-      // }
-      
     }
-    // else if (notes.length != 0 && notes.length != noteTypes.length) {
-
-    // }
-
-    //print('$noteTypes, $noteVals');
+    
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Column(
@@ -79,7 +62,6 @@ class _NoteFormState extends State<NoteForm> {
               TextButton(
                 onPressed: () {
                   print('$noteTypes, $noteVals');
-
                   setState(() {
                     noteVals = [... noteVals, ''];
                     noteTypes = [... noteTypes, 'header'];
@@ -97,14 +79,19 @@ class _NoteFormState extends State<NoteForm> {
                     noteVals = [... noteVals, ''];
                     noteTypes = [... noteTypes, 'paragraph'];
                   });
-                  print('$noteTypes, $noteVals');
+                  //print('$noteTypes, $noteVals');
                 },
                 child: Text(
                   '+ paragraph'
                 )
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    noteVals = [... noteVals, ''];
+                    noteTypes = [... noteTypes, 'bulletPoint'];
+                  });
+                },
                 child: Text(
                   '+ list'
                 )

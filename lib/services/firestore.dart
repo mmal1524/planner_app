@@ -46,6 +46,22 @@ class FireStoreService {
     return _db.collection('users').doc('$uid').collection('pages').doc('$pageID').collection('tasks').snapshots().map(_getTaskData);
   }
 
+  List<EventData> _getEventData (QuerySnapshot snapshot) {
+    return snapshot.docs.map<EventData>((doc) {
+      return EventData(
+        eventID: doc.id,
+        event: doc.data()['event'] ?? 'unknown task',
+        status: doc.data()['status'] ?? 'unknown status',
+        notes: doc.data()['notes'] ?? '',
+        time: doc.data()['time'] ?? Timestamp(0, 0)
+      );
+    }).toList();
+  }
+
+  Stream<List<EventData>> getEvents(String pageID) {
+    return _db.collection('users').doc('$uid').collection('pages').doc('$pageID').collection('events').snapshots().map(_getEventData);
+  }
+
   List<NoteData> _getNoteData (QuerySnapshot snapshot) {
     return snapshot.docs.map<NoteData>((doc) {
       return NoteData(
@@ -65,6 +81,14 @@ class FireStoreService {
       }
     );
     print('change status to $newStatus for uid: $uid with pageID: $pageID and taskID: $taskID');
+  }
+
+  changeEventStatus(String newStatus, pageID, eventID){
+    _db.collection('users').doc('$uid').collection('pages').doc('$pageID').collection('events').doc('$eventID').update({
+        'status': newStatus
+      }
+    );
+    print('change status to $newStatus for uid: $uid with pageID: $pageID and taskID: $eventID');
   }
 
   Future createUser(String uid, String email, String username) async {
@@ -92,12 +116,13 @@ class FireStoreService {
     }
   }
 
-  Future addEvent(String pageID, String event, TimeOfDay time) async {
+  Future addEvent(String pageID, String event, TimeOfDay time, String location) async {
     try {
        await _db.collection('users').doc(uid).collection('pages').doc(pageID).collection('events').doc('${TimeOfDay.now()}').set({
         'event': event,
         'time': Timestamp.fromDate(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, time.hour, time.minute, 0, 0, 0)),
         'status': 'to-do',
+        'location': location,
       });
     }
     catch (e) {

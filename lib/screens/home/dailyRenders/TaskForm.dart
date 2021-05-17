@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:planner_app/services/firestore.dart';
+import 'package:intl/intl.dart';
 
 class DailyForm extends StatefulWidget {
   final String uid, docRef;
@@ -38,11 +39,9 @@ class _DailyFormState extends State<DailyForm> {
             onChanged: (String newValue) {
               if (newValue == 'Task'){
                 setState(() => isTask = true);     
-                print('should switch to task form');
               }
               else {
                 setState(() => isTask = false);
-                print('should switch to event form???');
               }
               setState(() {
                 dropdownVal = newValue;
@@ -96,7 +95,7 @@ class _TaskFormState extends State<TaskForm> {
               Text('deadline'),
               SizedBox(width: 20),
               Expanded(
-                child: deadline != null ? Text('${deadline.toString()}') : Text('insert deadline')
+                child: deadline != null ? Text('${DateFormat.yMMMMd('en_US').add_jm().format(deadline)}') : Text('insert deadline')
               ),
               IconButton(
                 icon: Icon(Icons.calendar_today_outlined), 
@@ -178,7 +177,7 @@ class _EventFormState extends State<EventForm> {
               Text('time'),
               SizedBox(width: 20),
               Expanded(
-                child: time != null ? Text('${time.toString()}') : Text('insert time of event')
+                child: time != null ? Text('${DateFormat.jm().format(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, time.hour, time.minute, 0, 0, 0))}') : Text('insert time of event')
               ),
               IconButton(
                 icon: Icon(Icons.more_time_sharp), 
@@ -204,7 +203,7 @@ class _EventFormState extends State<EventForm> {
           ),
           OutlinedButton(
             onPressed: (){
-              FireStoreService(uid: uid).addEvent(docRef, event, time);
+              FireStoreService(uid: uid).addEvent(docRef, event, time, location);
               Navigator.pop(context);
             }, 
             child: Text('Submit')

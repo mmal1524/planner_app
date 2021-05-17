@@ -38,14 +38,26 @@ class _BasicDailyState extends State<BasicDaily> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('${DateFormat.EEEE('en_US').format(page.dateCreated.toDate())}'),
-                Text('${DateFormat.yMMMEd('en_US').format(page.dateCreated.toDate())}'),
-                ]
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('${DateFormat.EEEE('en_US').format(page.dateCreated.toDate())}', style: Theme.of(context).textTheme.headline6),
+                  Text('${DateFormat.yMMMEd('en_US').format(page.dateCreated.toDate())}', style: Theme.of(context).textTheme.headline6),
+                  ]
+              ),
             ),
             Expanded(
+              flex: 1,
+              child: StreamProvider<List<EventData>>.value(
+                initialData: [],
+                value: FireStoreService(uid: uid).getEvents(page.docRef),
+                child: EventList(pageID: page.docRef, uid: uid),
+              ),
+            ),
+            Expanded(
+              flex: 9,
               child: TaskList(uid: uid, pageID: page.docRef)
             ),
           ],

@@ -8,7 +8,7 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       '$val',
-      style: TextStyle(fontSize: 20),
+      style: Theme.of(context).textTheme.headline6.copyWith(fontWeight: FontWeight.normal)
     );
   }
 }
@@ -21,7 +21,7 @@ class Paragraph extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       '$val',
-      style: TextStyle(fontSize: 14),
+      style: Theme.of(context).textTheme.subtitle1.copyWith(fontSize: 16)
     );
   }
 }
@@ -34,13 +34,15 @@ class BulletPoint extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children:[
+        SizedBox(width: 10),
         Icon(
           Icons.circle,
-          size: 14,
+          size: 6,
         ),
+        SizedBox(width: 10),
         Text(
           '$val',
-          style: TextStyle(fontSize: 14),
+          style: Theme.of(context).textTheme.subtitle1.copyWith(fontSize: 16)
         )
       ]
     );

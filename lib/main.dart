@@ -34,12 +34,12 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme(
                 brightness: Brightness.light,
                 
-                secondary: Colors.pink[50],
+                secondary: Colors.blueGrey[50],
                 primary: Colors.blueGrey[900],
-                background: Colors.blueGrey[50],
+                background: Colors.pink[50],
                 onSecondary: Colors.blueGrey[700],
                 onPrimary: Colors.pink[50],
-                surface: Colors.blueGrey[100],
+                surface: Colors.pink[100],
                 onSurface: Colors.blueGrey[700],
                 onError: Colors.red,
                 primaryVariant: Colors.blueGrey[700],
@@ -48,7 +48,10 @@ class MyApp extends StatelessWidget {
                 secondaryVariant: Colors.pink[500]
               ),
               textTheme: TextTheme(
-
+                // headline6: TextStyle(
+                //   color: Colors.blueGrey[900],
+                //   fontSize: 25,
+                // ) 
               )
               // primaryColor: Colors.blueGrey[900], 
               // accentColor: Colors.pink[50],

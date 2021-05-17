@@ -40,7 +40,7 @@ class _PagesState extends State<Pages> {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Center(child: Text('my Pages')),
+              Center(child: Text('my Pages', style: Theme.of(context).textTheme.headline6)),
               Expanded(
                 child: PageList(uid: user.uid)                
               ),
@@ -52,7 +52,7 @@ class _PagesState extends State<Pages> {
                 await FireStoreService(uid: user.uid).addPage(val);
                 print(val);
               },
-              color: Colors.pink[100],
+              //color: Colors.blueGrey[900],
               itemBuilder: (BuildContext context) => <PopupMenuEntry>[
                 PopupMenuItem(
                   child: Row(children: [Icon(Icons.sticky_note_2_outlined), Text('notes')]),
@@ -62,10 +62,10 @@ class _PagesState extends State<Pages> {
                   child: Row(children: [Icon(Icons.assignment_outlined), Text('daily')]),
                   value: 'daily',
                 ),
-                PopupMenuItem(
-                  child: Row(children: [Icon(Icons.event_available_outlined), Text('habit?')]),
-                  value: 'habit?',
-                ),
+                // PopupMenuItem(
+                //   child: Row(children: [Icon(Icons.event_available_outlined), Text('habit?')]),
+                //   value: 'habit?',
+                // ),
               ]
 
             )

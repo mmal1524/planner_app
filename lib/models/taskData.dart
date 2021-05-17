@@ -7,3 +7,11 @@ class TaskData {
   TaskData({this.task, this.status, this.notes, this.deadline, this.taskID});
 
 }
+
+class EventData {
+  String event, status, location, eventID, notes;
+  Timestamp time;
+
+  EventData({this.event, this.status, this.notes, this.time, this.eventID});
+
+}

@@ -26,8 +26,11 @@ class _NoteListState extends State<NoteList> {
           if (notes[index].type == 'header') {
             return Header(val: notes[index].val);
           }
-          else /*(notes[index].type == 'paragraph')*/ {
+          else if (notes[index].type == 'paragraph') {
             return Paragraph(val: notes[index].val);
+          }
+          else {
+            return BulletPoint(val: notes[index].val);
           }
         }
         else {

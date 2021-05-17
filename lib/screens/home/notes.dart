@@ -28,17 +28,20 @@ class _NotesState extends State<Notes> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Notes'
+            'Notes',
           ),
           centerTitle: true,
         ),
-        body:  Column(
-          children: [
-            Text('${page.title}'),
-            Expanded(
-              child: NoteList()
-            ),
-          ]
+        body:  Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Text('${page.title}', style: Theme.of(context).textTheme.headline6),
+              Expanded(
+                child: NoteList()
+              ),
+            ]
+          ),
         ),
         floatingActionButton: IconButton(
           icon: Icon(Icons.add),
